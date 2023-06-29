@@ -1,0 +1,196 @@
+﻿body {
+    background-color: #f2f2f2;
+}
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.navbar ul li {
+    margin: 0 2rem;
+}
+
+.navbar ul li:last-child {
+    margin-right: 0;
+}
+
+.navbar ul li a{
+    color: #636363;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    color: #64A71A;
+}
+
+
+/*login page*/
+
+.btn-primary {
+font-weight: 600;
+display: inline-block;
+background-color: green;
+padding: .75rem 2rem;
+color: #fff !important;
+text-decoration: none;
+border-radius: 0.25rem;
+transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #da7908;
+}
+
+
+/*homepage */
+
+
+/*.cardWatch {
+    transition: transform 0.3s;
+}
+
+    .cardWatch img :hover {
+        transform: scale(1.05);
+    }*/
+
+/*.row .col-12 .col-md-4 .card-container img {
+    transition: transform 0.3s;
+}
+
+.row .col-12 .col-md-4 .card-container img:hover {
+    transform: scale(1.05);
+}*/
+/*.card-container img {
+    transition: transform 0.3s;
+}
+
+.card-container img:hover {
+    transform: scale(1.05);
+}*/
+
+
+
+/*REGISTER*/
+
+
+/*.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+    margin: 20px auto;
+    box-shadow: 0px 25px 30px #8fef79;
+}*/
+
+.title {
+    font-size: 28px;
+    color: green;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.title::before,
+.title::after {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 0px;
+    background-color: forestgreen;
+}
+
+.title::before {
+    width: 18px;
+    height: 18px;
+    background-color: forestgreen;
+}
+
+.title::after {
+    width: 18px;
+    height: 18px;
+    animation: pulse 1s linear infinite;
+}
+
+.message,
+.signin {
+    color: rgba(88, 87, 87, 0.822);
+    font-size: 14px;
+}
+
+.signin {
+    text-align: center;
+}
+
+.signin a {
+    color: royalblue;
+}
+
+.signin a:hover {
+    text-decoration: underline royalblue;
+}
+
+.form label {
+    position: relative;
+}
+
+.form label .input {
+    width: 100%;
+    padding: 10px;
+    outline: 0;
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+}
+
+.form label .input + span {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: grey;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+}
+
+
+.submit {
+    border: none;
+    outline: none;
+    background-color: green;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+.submit:hover {
+    background-color: darkgreen;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}

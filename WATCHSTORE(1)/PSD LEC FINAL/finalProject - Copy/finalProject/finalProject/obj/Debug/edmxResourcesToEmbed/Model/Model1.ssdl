@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Album">
+    <Key>
+      <PropertyRef Name="AlbumID" />
+    </Key>
+    <Property Name="AlbumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArtistID" Type="int" Nullable="false" />
+    <Property Name="AlbumName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AlbumImage" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AlbumPrice" Type="int" Nullable="false" />
+    <Property Name="AlbumStock" Type="int" Nullable="false" />
+    <Property Name="AlbumDescription" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+      <PropertyRef Name="WatchDetailID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="WatchDetailID" Type="int" Nullable="false" />
+    <Property Name="Qty" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerPassword" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerGender" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="CustomerAddress" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CustomerRole" Type="varchar" MaxLength="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TransactionDetail">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="WatchDetailID" />
+    </Key>
+    <Property Name="TransactionID" Type="int" Nullable="false" />
+    <Property Name="WatchDetailID" Type="int" Nullable="false" />
+    <Property Name="Qty" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TransactionHeader">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TransactionDate" Type="date" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Watch">
+    <Key>
+      <PropertyRef Name="WatchID" />
+    </Key>
+    <Property Name="WatchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WatchName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="WatchImage" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WatchDetail">
+    <Key>
+      <PropertyRef Name="WatchDetailID" />
+    </Key>
+    <Property Name="WatchDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WatchID" Type="int" Nullable="false" />
+    <Property Name="WatchName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="WatchImage" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="WatchPrice" Type="int" Nullable="false" />
+    <Property Name="WatchStock" Type="int" Nullable="false" />
+    <Property Name="WatchDescription" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Cart_Album">
+    <End Role="WatchDetail" Type="Self.WatchDetail" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WatchDetail">
+        <PropertyRef Name="WatchDetailID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="WatchDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionDetail_Album">
+    <End Role="WatchDetail" Type="Self.WatchDetail" Multiplicity="1" />
+    <End Role="TransactionDetail" Type="Self.TransactionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WatchDetail">
+        <PropertyRef Name="WatchDetailID" />
+      </Principal>
+      <Dependent Role="TransactionDetail">
+        <PropertyRef Name="WatchDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionDetail_TransactionHeader">
+    <End Role="TransactionHeader" Type="Self.TransactionHeader" Multiplicity="1" />
+    <End Role="TransactionDetail" Type="Self.TransactionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TransactionHeader">
+        <PropertyRef Name="TransactionID" />
+      </Principal>
+      <Dependent Role="TransactionDetail">
+        <PropertyRef Name="TransactionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionHeader_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="TransactionHeader" Type="Self.TransactionHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="TransactionHeader">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WatchDetail_Artist">
+    <End Role="Watch" Type="Self.Watch" Multiplicity="1" />
+    <End Role="WatchDetail" Type="Self.WatchDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Watch">
+        <PropertyRef Name="WatchID" />
+      </Principal>
+      <Dependent Role="WatchDetail">
+        <PropertyRef Name="WatchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionDetail" EntityType="Self.TransactionDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionHeader" EntityType="Self.TransactionHeader" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Watch" EntityType="Self.Watch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WatchDetail" EntityType="Self.WatchDetail" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cart_Album" Association="Self.FK_Cart_Album">
+      <End Role="WatchDetail" EntitySet="WatchDetail" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_Customer" Association="Self.FK_Cart_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionDetail_Album" Association="Self.FK_TransactionDetail_Album">
+      <End Role="WatchDetail" EntitySet="WatchDetail" />
+      <End Role="TransactionDetail" EntitySet="TransactionDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionDetail_TransactionHeader" Association="Self.FK_TransactionDetail_TransactionHeader">
+      <End Role="TransactionHeader" EntitySet="TransactionHeader" />
+      <End Role="TransactionDetail" EntitySet="TransactionDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionHeader_Customer" Association="Self.FK_TransactionHeader_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="TransactionHeader" EntitySet="TransactionHeader" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WatchDetail_Artist" Association="Self.FK_WatchDetail_Artist">
+      <End Role="Watch" EntitySet="Watch" />
+      <End Role="WatchDetail" EntitySet="WatchDetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
